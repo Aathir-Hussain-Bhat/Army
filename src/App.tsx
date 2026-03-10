@@ -33,8 +33,11 @@ export default function App() {
       engineRef.current = new GameEngine((state) => {
         setGameState(state);
       });
+      setGameState(engineRef.current.state);
     }
+  }, []);
 
+  useEffect(() => {
     const canvas = canvasRef.current;
     if (canvas && engineRef.current) {
       const ctx = canvas.getContext('2d');
@@ -43,7 +46,9 @@ export default function App() {
         engineRef.current.draw();
       }
     }
+  }, [gameState !== null]);
 
+  useEffect(() => {
     let animationFrameId: number;
     const loop = () => {
       if (engineRef.current) {

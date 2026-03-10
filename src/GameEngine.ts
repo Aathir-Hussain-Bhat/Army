@@ -363,7 +363,11 @@ export class GameEngine {
       
       // Tower base
       ctx.beginPath();
-      ctx.roundRect(tower.col * GRID_SIZE + 6, tower.row * GRID_SIZE + 6, GRID_SIZE - 12, GRID_SIZE - 12, 4);
+      if (ctx.roundRect) {
+        ctx.roundRect(tower.col * GRID_SIZE + 6, tower.row * GRID_SIZE + 6, GRID_SIZE - 12, GRID_SIZE - 12, 4);
+      } else {
+        ctx.rect(tower.col * GRID_SIZE + 6, tower.row * GRID_SIZE + 6, GRID_SIZE - 12, GRID_SIZE - 12);
+      }
       ctx.fill();
       ctx.stroke();
       
