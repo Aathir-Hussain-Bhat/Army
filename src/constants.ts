@@ -7,115 +7,119 @@ export const CANVAS_HEIGHT = ROWS * GRID_SIZE;
 // 0: Buildable, 1: Path, 2: Base
 export const MAP_GRID = [
   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2],
+  [1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2],
   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 ];
 
 export const WAYPOINTS = [
-  { x: 0, y: 2 },
-  { x: 15, y: 2 },
-  { x: 15, y: 10 },
-  { x: 5, y: 10 },
-  { x: 5, y: 13 },
+  { x: 0, y: 1 },
+  { x: 4, y: 1 },
+  { x: 4, y: 3 },
+  { x: 10, y: 3 },
+  { x: 10, y: 6 },
+  { x: 16, y: 6 },
+  { x: 16, y: 10 },
+  { x: 8, y: 10 },
+  { x: 8, y: 13 },
   { x: 19, y: 13 },
 ];
 
 export const TOWER_TYPES = {
-  soldier: {
-    name: 'Soldier',
+  blaster: {
+    name: 'Blaster',
     cost: 50,
     range: 100,
     damage: 10,
-    cooldown: 60, // frames (1 sec at 60fps)
-    color: '#3b82f6', // blue
-    projectileSpeed: 5,
-  },
-  flame: {
-    name: 'Flame',
-    cost: 100,
-    range: 80,
-    damage: 2,
-    cooldown: 5,
-    color: '#ef4444', // red
+    cooldown: 40, // frames (1 sec at 60fps)
+    color: '#06b6d4', // cyan
     projectileSpeed: 8,
   },
-  sniper: {
-    name: 'Sniper',
+  plasma: {
+    name: 'Plasma',
+    cost: 100,
+    range: 80,
+    damage: 3,
+    cooldown: 5,
+    color: '#d946ef', // fuchsia
+    projectileSpeed: 10,
+  },
+  railgun: {
+    name: 'Railgun',
     cost: 150,
     range: 250,
-    damage: 50,
+    damage: 60,
     cooldown: 120,
-    color: '#10b981', // green
-    projectileSpeed: 15,
+    color: '#10b981', // emerald
+    projectileSpeed: 20,
   },
 };
 
 export const ENEMY_TYPES = {
-  basic: {
+  glitch: {
     health: 30,
-    speed: 1,
+    speed: 1.2,
     damage: 1,
     reward: 5,
-    color: '#f59e0b', // amber
+    color: '#f97316', // orange
     radius: 10,
   },
-  fast: {
+  runner: {
     health: 20,
-    speed: 2,
+    speed: 2.5,
     damage: 1,
     reward: 8,
     color: '#eab308', // yellow
     radius: 8,
   },
-  tank: {
-    health: 150,
-    speed: 0.6,
+  brute: {
+    health: 180,
+    speed: 0.7,
     damage: 3,
     reward: 20,
-    color: '#78350f', // dark brown
+    color: '#ef4444', // red
     radius: 14,
   },
-  boss: {
-    health: 500,
-    speed: 0.5,
+  virus: {
+    health: 600,
+    speed: 0.6,
     damage: 10,
     reward: 100,
-    color: '#4c1d95', // purple
+    color: '#8b5cf6', // violet
     radius: 20,
   },
 };
 
 export const WAVES = [
   [
-    { type: 'basic', count: 10, interval: 60 },
+    { type: 'glitch', count: 10, interval: 60 },
   ],
   [
-    { type: 'basic', count: 15, interval: 50 },
-    { type: 'fast', count: 5, interval: 40 },
+    { type: 'glitch', count: 15, interval: 50 },
+    { type: 'runner', count: 5, interval: 40 },
   ],
   [
-    { type: 'basic', count: 10, interval: 40 },
-    { type: 'tank', count: 5, interval: 80 },
-    { type: 'fast', count: 10, interval: 30 },
+    { type: 'glitch', count: 10, interval: 40 },
+    { type: 'brute', count: 5, interval: 80 },
+    { type: 'runner', count: 10, interval: 30 },
   ],
   [
-    { type: 'tank', count: 15, interval: 60 },
-    { type: 'fast', count: 15, interval: 30 },
+    { type: 'brute', count: 15, interval: 60 },
+    { type: 'runner', count: 15, interval: 30 },
   ],
   [
-    { type: 'boss', count: 1, interval: 100 },
-    { type: 'tank', count: 10, interval: 50 },
+    { type: 'virus', count: 1, interval: 100 },
+    { type: 'brute', count: 10, interval: 50 },
   ],
 ];

@@ -26,7 +26,7 @@ export class GameEngine {
       particles: [],
       waveTimer: 0,
       enemiesToSpawn: [],
-      unlockedTowers: ['soldier'],
+      unlockedTowers: ['blaster'],
     };
   }
 
@@ -54,7 +54,7 @@ export class GameEngine {
         this.state.baseHealth = parsed.baseHealth;
         this.state.wave = parsed.wave;
         this.state.towers = parsed.towers;
-        this.state.unlockedTowers = parsed.unlockedTowers || ['soldier'];
+        this.state.unlockedTowers = parsed.unlockedTowers || ['blaster'];
         this.state.enemies = [];
         this.state.projectiles = [];
         this.state.particles = [];
@@ -87,11 +87,11 @@ export class GameEngine {
     this.state.wave = waveIndex;
     this.state.enemiesToSpawn = [];
     
-    if (waveIndex >= 1 && !this.state.unlockedTowers.includes('flame')) {
-      this.state.unlockedTowers.push('flame');
+    if (waveIndex >= 1 && !this.state.unlockedTowers.includes('plasma')) {
+      this.state.unlockedTowers.push('plasma');
     }
-    if (waveIndex >= 3 && !this.state.unlockedTowers.includes('sniper')) {
-      this.state.unlockedTowers.push('sniper');
+    if (waveIndex >= 3 && !this.state.unlockedTowers.includes('railgun')) {
+      this.state.unlockedTowers.push('railgun');
     }
     
     let delay = 0;
@@ -321,8 +321,8 @@ export class GameEngine {
 
     ctx.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
 
-    // Draw path
-    ctx.strokeStyle = '#4b5563';
+    // Draw path (neon circuit style)
+    ctx.strokeStyle = '#1e1b4b'; // dark violet path
     ctx.lineWidth = GRID_SIZE;
     ctx.lineCap = 'square';
     ctx.lineJoin = 'miter';
@@ -335,59 +335,95 @@ export class GameEngine {
     });
     ctx.stroke();
 
-    // Draw base
+    // Inner glowing line for path
+    ctx.strokeStyle = '#4338ca';
+    ctx.lineWidth = 4;
+    ctx.stroke();
+
+    // Draw base (neon core)
     const lastWp = WAYPOINTS[WAYPOINTS.length - 1];
-    ctx.fillStyle = '#3b82f6';
-    ctx.fillRect(lastWp.x * GRID_SIZE, lastWp.y * GRID_SIZE, GRID_SIZE, GRID_SIZE);
+    ctx.fillStyle = '#0ea5e9';
+    ctx.shadowColor = '#0ea5e9';
+    ctx.shadowBlur = 15;
+    ctx.fillRect(lastWp.x * GRID_SIZE + 4, lastWp.y * GRID_SIZE + 4, GRID_SIZE - 8, GRID_SIZE - 8);
     ctx.fillStyle = 'white';
-    ctx.font = '20px Arial';
+    ctx.shadowBlur = 0;
+    ctx.font = 'bold 16px monospace';
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
-    ctx.fillText('B', lastWp.x * GRID_SIZE + GRID_SIZE / 2, lastWp.y * GRID_SIZE + GRID_SIZE / 2);
+    ctx.fillText('CORE', lastWp.x * GRID_SIZE + GRID_SIZE / 2, lastWp.y * GRID_SIZE + GRID_SIZE / 2);
 
     // Draw towers
     this.state.towers.forEach(tower => {
-      ctx.fillStyle = tower.color;
-      ctx.fillRect(tower.col * GRID_SIZE + 4, tower.row * GRID_SIZE + 4, GRID_SIZE - 8, GRID_SIZE - 8);
+      ctx.fillStyle = '#0f172a'; // dark base
+      ctx.strokeStyle = tower.color;
+      ctx.lineWidth = 2;
+      ctx.shadowColor = tower.color;
+      ctx.shadowBlur = 10;
+      
+      // Tower base
+      ctx.beginPath();
+      ctx.roundRect(tower.col * GRID_SIZE + 6, tower.row * GRID_SIZE + 6, GRID_SIZE - 12, GRID_SIZE - 12, 4);
+      ctx.fill();
+      ctx.stroke();
       
       // Turret
-      ctx.fillStyle = '#1f2937';
+      ctx.fillStyle = tower.color;
       ctx.beginPath();
-      ctx.arc(tower.x, tower.y, 8, 0, Math.PI * 2);
+      ctx.arc(tower.x, tower.y, 6, 0, Math.PI * 2);
       ctx.fill();
+      ctx.shadowBlur = 0;
     });
 
     // Draw enemies
     this.state.enemies.forEach(enemy => {
-      ctx.fillStyle = enemy.color;
+      ctx.fillStyle = '#000';
+      ctx.strokeStyle = enemy.color;
+      ctx.lineWidth = 2;
+      ctx.shadowColor = enemy.color;
+      ctx.shadowBlur = 8;
+      
       ctx.beginPath();
-      ctx.arc(enemy.x, enemy.y, enemy.radius, 0, Math.PI * 2);
+      // Draw as a diamond/polygon for cyber feel
+      ctx.moveTo(enemy.x, enemy.y - enemy.radius);
+      ctx.lineTo(enemy.x + enemy.radius, enemy.y);
+      ctx.lineTo(enemy.x, enemy.y + enemy.radius);
+      ctx.lineTo(enemy.x - enemy.radius, enemy.y);
+      ctx.closePath();
       ctx.fill();
+      ctx.stroke();
+      ctx.shadowBlur = 0;
 
       // Health bar
       const hpPercent = enemy.health / enemy.maxHealth;
-      ctx.fillStyle = 'red';
-      ctx.fillRect(enemy.x - 10, enemy.y - enemy.radius - 6, 20, 4);
-      ctx.fillStyle = '#22c55e';
-      ctx.fillRect(enemy.x - 10, enemy.y - enemy.radius - 6, 20 * hpPercent, 4);
+      ctx.fillStyle = '#333';
+      ctx.fillRect(enemy.x - 12, enemy.y - enemy.radius - 8, 24, 3);
+      ctx.fillStyle = enemy.color;
+      ctx.fillRect(enemy.x - 12, enemy.y - enemy.radius - 8, 24 * hpPercent, 3);
     });
 
     // Draw projectiles
     this.state.projectiles.forEach(proj => {
       ctx.fillStyle = proj.color;
+      ctx.shadowColor = proj.color;
+      ctx.shadowBlur = 10;
       ctx.beginPath();
-      ctx.arc(proj.x, proj.y, 4, 0, Math.PI * 2);
+      ctx.arc(proj.x, proj.y, 3, 0, Math.PI * 2);
       ctx.fill();
+      ctx.shadowBlur = 0;
     });
 
     // Draw particles
     this.state.particles.forEach(p => {
       ctx.fillStyle = p.color;
+      ctx.shadowColor = p.color;
+      ctx.shadowBlur = 5;
       ctx.globalAlpha = p.life / p.maxLife;
       ctx.beginPath();
       ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
       ctx.fill();
       ctx.globalAlpha = 1;
+      ctx.shadowBlur = 0;
     });
   }
 
